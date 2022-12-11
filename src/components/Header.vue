@@ -23,7 +23,7 @@
 
 <script>
 import { mapStores } from "pinia";
-import    useModalStore from "@/stores/modal";
+import useModalStore from "@/stores/modal";
 
 export default {
   name: "AppHeader",

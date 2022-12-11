@@ -91,7 +91,11 @@ import { useModalStore } from '@/stores/modal.js';
             </button>
           </form>
           <!-- Registration Form -->
-          <vee-form v-show="tab === 'register'" :validation-schema="schema">
+          <vee-form
+            v-show="tab === 'register'"
+            :validation-schema="schema"
+            @submit="register"
+          >
             <!-- Name -->
             <div class="mb-3">
               <label class="inline-block mb-2">Name</label>
@@ -149,20 +153,27 @@ import { useModalStore } from '@/stores/modal.js';
             <!-- Country -->
             <div class="mb-3">
               <label class="inline-block mb-2">Country</label>
-              <select
+              <vee-field
+                as="select"
+                name="country"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
               >
                 <option value="USA">USA</option>
                 <option value="Mexico">Mexico</option>
                 <option value="Germany">Germany</option>
-              </select>
+                <option value="Antarctica">Antarctica</option>
+              </vee-field>
+              <ErrorMessage class="text-red-600" name="country" />
             </div>
             <!-- TOS -->
             <div class="mb-3 pl-6">
-              <input
+              <vee-field
+                name="tos"
+                value="1"
                 type="checkbox"
-                class="w-4 h-4 float-left -ml-6 mt-1 rounded"
+                class="w-4 h-4 float-left -ml-6 mt-1 rounded inline-block"
               />
+              <ErrorMessage class="text-red-600 block" name="tos" />
               <label class="inline-block">Accept terms of service</label>
             </div>
             <button
@@ -193,8 +204,8 @@ export default {
         age: "required|min_value:18|max_value:100",
         password: "required|min:3|max:100",
         confirm_password: "confirmed:@password",
-        country: "",
-        tos: "",
+        country: "required|excluded:Antarctica",
+        tos: "required",
       },
     };
   },
@@ -203,6 +214,11 @@ export default {
     ...mapWritableState(useModalStore, {
       modalVisibility: "isOpen",
     }),
+  },
+  methods: {
+    register(values) {
+      console.log(values);
+    },
   },
 };
 </script>
