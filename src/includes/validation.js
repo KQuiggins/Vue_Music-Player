@@ -38,7 +38,7 @@ export default {
     configure({
       generateMessage: (ctx) => {
         const messages = {
-          required: `$The field ${ctx.field} is required`,
+          required: `The field ${ctx.field} is required`,
           min: `The field ${ctx.field} is too short`,
           max: `The field ${ctx.field} is too long`,
           alpha_spaces: `The field ${ctx.field} may only contain alphabetic characters and spaces`,

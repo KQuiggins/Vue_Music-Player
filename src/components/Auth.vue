@@ -64,24 +64,32 @@ import { useModalStore } from '@/stores/modal.js';
           </ul>
 
           <!-- Login Form -->
-          <form v-show="tab === 'login'">
+          <vee-form
+            v-show="tab === 'login'"
+            :validation-schema="loginSchema"
+            @submit="login"
+          >
             <!-- Email -->
             <div class="mb-3">
               <label class="inline-block mb-2">Email</label>
-              <input
+              <vee-field
+                name="email"
                 type="email"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Enter Email"
               />
+              <ErrorMessage class="text-red-600" name="email" />
             </div>
             <!-- Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Password</label>
-              <input
+              <vee-field
+                name="password"
                 type="password"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Password"
               />
+              <ErrorMessage class="text-red-600" name="password" />
             </div>
             <button
               type="submit"
@@ -89,8 +97,15 @@ import { useModalStore } from '@/stores/modal.js';
             >
               Submit
             </button>
-          </form>
+          </vee-form>
           <!-- Registration Form -->
+          <div
+            class="text-white text-center font-bold p-4 rounded mb-4"
+            v-if="reg_show_alert"
+            :class="reg_alert_variant"
+          >
+            {{ reg_alert_msg }}
+          </div>
           <vee-form
             v-show="tab === 'register'"
             :validation-schema="schema"
@@ -189,6 +204,7 @@ import { useModalStore } from '@/stores/modal.js';
             <button
               type="submit"
               class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700"
+              :disabled="reg_in_submission"
             >
               Submit
             </button>
@@ -213,12 +229,20 @@ export default {
         email: "required|min:3|max:100|email",
         age: "required|min_value:18|max_value:100",
         password: "required|min:9|max:100|excluded:password",
-        confirm_password: "passwords_mismatch",
+        confirm_password: "passwords_mismatch:@password",
         country: "required|country_excluded:Antarctica",
         tos: "tos",
       },
       userData: {
         country: "USA",
+      },
+      reg_in_submission: false,
+      reg_show_alert: false,
+      reg_alert_variant: "bg-blue-500",
+      reg_alert_msg: "Please wait! Your account is being created.",
+      loginSchema: {
+        email: "required|email",
+        password: "required|min:9|max:100",
       },
     };
   },
@@ -230,6 +254,16 @@ export default {
   },
   methods: {
     register(values) {
+      this.reg_show_alert = true;
+      this.reg_in_submission = true;
+      this.reg_alert_variant = "bg-blue-500";
+      this.reg_alert_msg = "Please wait! Your account is being created.";
+
+      this.reg_alert_variant = "bg-green-500";
+      this.reg_alert_msg = "Your account has been created successfully.";
+      console.log(values);
+    },
+    login(values) {
       console.log(values);
     },
   },
