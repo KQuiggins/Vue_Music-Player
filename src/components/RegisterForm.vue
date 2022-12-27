@@ -149,7 +149,6 @@ export default {
       this.reg_alert_variant = "bg-blue-500";
       this.reg_alert_msg = "Please wait! Your account is being created.";
 
-
       try {
         await this.createUser(values);
       } catch (error) {
@@ -161,7 +160,6 @@ export default {
 
       this.reg_alert_variant = "bg-green-500";
       this.reg_alert_msg = "Your account has been created successfully.";
-
     },
   },
 };
