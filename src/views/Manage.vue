@@ -141,16 +141,5 @@ export default {
   components: {
     AppUpload,
   },
-  // beforeRouteEnter(to, from, next) {
-  //   const store = useUserStore();
-
-  //   if (store.userLoggedIn) {
-  //     next();
-  //   } else {
-  //     next({ name: "home" });
-  //   }
-
-  //   console.log("beforeRouteEnter");
-  // },
 };
 </script>
