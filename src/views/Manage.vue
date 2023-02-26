@@ -18,7 +18,9 @@ import useUserStore from '@/stores/user';
           </div>
           <div class="p-6">
             <!-- Composition Items -->
-            <composition-item v-for="song in songs" :key="song.docID" />
+            <composition-item v-for="song in songs" :key="song.docID"
+              :song="song"
+            />
           </div>
         </div>
       </div>
@@ -31,7 +33,6 @@ import useUserStore from '@/stores/user';
 import AppUpload from "@/components/Upload.vue";
 import CompositionItem from "@/components/CompositionItem.vue";
 import { songsCollection, auth } from "@/includes/firebase";
-
 
 export default {
   name: "manage",
