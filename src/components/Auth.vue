@@ -63,7 +63,7 @@ import { useModalStore } from '@/stores/modal.js';
             </li>
           </ul>
 
-          <app-login-form v-if="tab === 'login'"/>
+          <app-login-form v-if="tab === 'login'" />
           <app-register-form v-else />
         </div>
       </div>
